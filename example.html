@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="jquery-1.11.0.min.js"></script>
+    <script src='lib/frequenciesextractor.js'></script>
+    <script src='lib/notesfrequencies.js'></script>
+    <script src='tuner.js'></script>
+    <title>tuner.js example</title>
+</head>
+<body>
+<script>
+
+    // NOTE: In Chrome this doesn't work accessing the file directly, you need a server.
+
+    window.AudioContext = window.AudioContext ||
+            window.webkitAudioContext;
+
+    navigator.getMedia = ( navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.msGetUserMedia);
+
+    var audioContext = new AudioContext();
+
+    var gotStreamCallback = function gotStreamCallbackFunction(mediaStream) {
+        var microphoneSource = audioContext.createMediaStreamSource(mediaStream);
+
+        var tuner = new Tuner(microphoneSource, audioContext.destination, audioContext);
+
+        tuner.start(function(note) {
+            $('#note').text(note);
+        });
+
+    };
+
+    var errorCallback = function errorCallbackFunction(error) {
+        console.log(error);
+    };
+
+    navigator.getMedia({audio: true}, gotStreamCallback, errorCallback);
+
+</script>
+
+Note: <p id="note"> </p>
+
+</body>
+</html>

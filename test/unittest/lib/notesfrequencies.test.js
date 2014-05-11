@@ -17,9 +17,6 @@ suite('NotesFrequencies', function() {
         test('findNoteByFrequency when called with frequency ' + testCase.args + ' should return ' + testCase.expected, function() {
             var actual = NotesFrequencies.findNoteByFrequency(testCase.args);
 
-            console.log(actual);
-            console.log(testCase.expected);
-
             chai.assert.equal(actual, testCase.expected);
         });
 
