@@ -25,13 +25,8 @@ function Tuner(sourceNode, destinationNode, audioContext, frequenciesExtractor, 
 
             analyserNode.getByteFrequencyData(freqByteData);
 
-
             var higherValueFrequency = self.frequenciesExtractor.extractHigherValueFrequency(freqByteData, analyserNode.fftSize, self.audioContext.sampleRate);
-            self.count++;
-            if (self.count < 20) {
-                console.log(freqByteData);
-                console.log(higherValueFrequency)
-            }
+
             var note = self.NotesFrequencies.findNoteByFrequency(higherValueFrequency);
 
             callback(note);
